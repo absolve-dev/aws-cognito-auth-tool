@@ -6,14 +6,25 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Signup />
-        <CognitoSetup/>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          cognito: {}
+        };
+    }
+    componentDidMount() {
+        const cognito = JSON.parse(localStorage.getItem("aws-cognito"))
+        this.setState({cognito})
+    }
+    render() {
+        return (
+            <div className="App">
+            <Signup />
+            <CognitoSetup/>
+            </div>
+        );
+    }
 }
 
 export default App;
