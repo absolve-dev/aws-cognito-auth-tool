@@ -34,6 +34,8 @@ class Signup extends Component {
                             onChange={this.handleChange} 
                         />
                     </div>
+                </div>
+                <div className="field">
                     <div className="control">
                         <input 
                             type="text" 
