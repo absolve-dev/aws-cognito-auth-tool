@@ -22,21 +22,21 @@ class Signup extends Component {
     render() {
         return (
             <div className="App">
-                <div class="field">
-                    <div class="control">
+                <div className="field">
+                    <div className="control">
                         <input 
                             type="text" 
-                            class="input is-primary" 
+                            className="input is-primary" 
                             placeholder="Email"
                             name="email" 
                             value={this.state.email}
                             onChange={this.handleChange} 
                         />
                     </div>
-                    <div class="control">
+                    <div className="control">
                         <input 
                             type="text" 
-                            class="input is-primary" 
+                            className="input is-primary" 
                             placeholder="Password"
                             name="password" 
                             value={this.state.password} 
