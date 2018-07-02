@@ -14,7 +14,7 @@ class App extends Component {
         };
     }
     componentDidMount() {
-        const cognito = JSON.parse(localStorage.getItem("aws-cognito"))
+        const cognito = JSON.parse(localStorage.getItem("cognito"))
         this.setState({cognito})
     }
     render() {
