@@ -22,6 +22,7 @@ class Signup extends Component {
     render() {
         return (
             <div className="App">
+                <h1 className="title">User Signup Info</h1>
                 <div className="field">
                     <div className="control">
                         <input 
