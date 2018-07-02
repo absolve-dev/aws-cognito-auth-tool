@@ -9,8 +9,18 @@ class CognitoSetup extends Component {
         this.state = {
           userPoolId: "",
           userPoolWebClientId: "",
-          identityPoolId: ""
+          identityPoolId: "",
         };
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+        if (this.state.userPoolId === "" && 
+            this.state.userPoolWebClientId === "" && 
+            this.state.identityPoolId === "" ) {
+                return
+        }
+        localStorage.setItem("cognito",JSON.stringify(this.state))
     }
     handleChange = event => {
         this.setState({
@@ -58,6 +68,7 @@ class CognitoSetup extends Component {
                         />
                     </div>
                 </div>
+                <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
             </div>
         );
     }
