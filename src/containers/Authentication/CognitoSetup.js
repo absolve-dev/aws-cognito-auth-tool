@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
-
+import { amplifyConfig } from "../../amplifyConfig";
 
 class CognitoSetup extends Component {
     constructor(props) {
@@ -23,6 +23,7 @@ class CognitoSetup extends Component {
                 return
         }
         localStorage.setItem("cognito",JSON.stringify(this.state))
+        amplifyConfig(this.state)
     }
     handleChange = event => {
         this.setState({
