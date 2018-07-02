@@ -7,15 +7,17 @@ class CognitoSetup extends Component {
         super(props);
     
         this.state = {
-          userPoolId: "",
-          userPoolWebClientId: "",
-          identityPoolId: "",
+            region: "",
+            userPoolId: "",
+            userPoolWebClientId: "",
+            identityPoolId: "",
         };
     }
 
     handleSubmit = event => {
         event.preventDefault()
-        if (this.state.userPoolId === "" && 
+        if (this.state.region === "" &&
+            this.state.userPoolId === "" && 
             this.state.userPoolWebClientId === "" && 
             this.state.identityPoolId === "" ) {
                 return
@@ -32,6 +34,18 @@ class CognitoSetup extends Component {
         return (
             <div className="App">
                 <h1 className="title">CognitoSetup</h1>
+                <div className="field">
+                    <div className="control">
+                        <input 
+                            type="text" 
+                            className="input is-info" 
+                            placeholder="region"
+                            name="region" 
+                            value={this.state.region}
+                            onChange={this.handleChange} 
+                        />
+                    </div>
+                </div>
                 <div className="field">
                     <div className="control">
                         <input 
