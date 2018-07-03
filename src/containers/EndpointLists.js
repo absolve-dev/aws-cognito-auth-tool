@@ -30,13 +30,17 @@ class EndpointLists extends Component {
                     this.props.endpoints.length === 0 ? null:
                     this.props.endpoints.map( (endpoint,index) => {
                         return (
-                            <div key={index}>
-                            <h1>{endpoint.httpMethod}</h1>
-                            <h2>{endpoint.endpointUrl}</h2>
-                            <a 
-                                className="button is-info" 
-                                onClick={()=>this.handleFetch(endpoint.httpMethod,endpoint.endpointUrl)}>Submit</a>
-                            </div>
+                            <div class="container" key={index}>
+                                <div class="notification">
+                                    <div>
+                                        <strong>{endpoint.httpMethod}</strong> <span>{endpoint.endpointUrl}</span>
+                                    </div>
+                                    <a 
+                                        className="button is-info" 
+                                        onClick={()=>this.handleFetch(endpoint.httpMethod,endpoint.endpointUrl)}>Submit
+                                    </a>
+                                </div>
+                            </div>                           
                         )
                     })
                 }
