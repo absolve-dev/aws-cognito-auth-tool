@@ -21,16 +21,17 @@ class EndpointForm extends Component {
         }
     }
 
-    getEndpointsInLocalStorage(){
+    getEndpointsInLocalStorage = () => {
         return JSON.parse(localStorage.getItem("endpoints"))
     }
 
-    setEndpointsInLocalStorage(endpoints){
+    setEndpointsInLocalStorage = (endpoints) => {
         localStorage.setItem("endpoints",JSON.stringify(endpoints))
         return this.getEndpointsInLocalStorage()
     }
 
-    removeEndpointsInLocalStorage(){
+    removeEndpointsInLocalStorage = () => {
+        this.setState({endpoints:[]})
         localStorage.removeItem("endpoints")
     }
 
@@ -92,6 +93,7 @@ class EndpointForm extends Component {
                     </select>
                 </div>
                 <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
+                <a className="button is-danger" onClick={this.removeEndpointsInLocalStorage}>Delete All Endpoints</a>
                 <EndpointLists endpoints={this.state.endpoints}/>
             </div>
         );
