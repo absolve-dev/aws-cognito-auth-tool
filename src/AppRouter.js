@@ -10,7 +10,7 @@ import VerifyEmail from './containers/Authentication/VerifyEmail';
 class AppRouter extends Component {
     render(){
         return(
-            <Router>
+
                 <Switch>
                     <Route exact path="/" component={Login}/>
                     <Route path="/signup" component={Signup}/>
@@ -18,7 +18,6 @@ class AppRouter extends Component {
                     <Route path="/endpoints" component={EndpointForm}/>
                     <Route path="/verifyemail" component={VerifyEmail}/>
                 </Switch>
-            </Router>
         )
     }
 }
