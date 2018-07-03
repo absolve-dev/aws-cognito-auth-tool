@@ -22,7 +22,7 @@ class NavigationBar extends Component {
                     <Link className="navbar-item" to="/verifyemail">
                         Verify Email
                     </Link>
-                    <Link className="navbar-item" to="/cognito-setup">
+                    <Link className="navbar-item" to="/cognitosetup">
                         Cognito Settings
                     </Link>
                     </div>
