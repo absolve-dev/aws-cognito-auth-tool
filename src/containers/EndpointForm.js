@@ -7,6 +7,7 @@ class EndpointForm extends Component {
         super(props);
     
         this.state = {
+          name: "",
           baseUrl: "",
           endpoint: "",
           httpMethod: "GET",
@@ -44,6 +45,7 @@ class EndpointForm extends Component {
                 {
                     httpMethod: this.state.httpMethod,
                     endpointUrl: this.state.baseUrl + this.state.endpoint,
+                    name: this.state.name
                 }
             ]
         },()=>{
@@ -60,6 +62,18 @@ class EndpointForm extends Component {
         return (
             <div className="App">
                 <h1 className="title">EndpointForm</h1>
+                <div className="field">
+                    <div className="control">
+                        <input
+                            type="text" 
+                            className="input is-info" 
+                            placeholder="name"
+                            name="name" 
+                            value={this.state.name} 
+                            onChange={this.handleChange} 
+                        />
+                    </div>
+                </div>
                 <div className="field">
                     <div className="control">
                         <input
