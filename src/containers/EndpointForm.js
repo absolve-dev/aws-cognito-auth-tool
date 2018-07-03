@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
+import EndpointLists from "./EndpointLists";
 
 class EndpointForm extends Component {
     constructor(props) {
@@ -17,13 +18,12 @@ class EndpointForm extends Component {
         event.preventDefault()
         this.setState({
             endpoint: "",
-            httpMethod: "",
             endpoints: [
                 ...this.state.endpoints,
-                [
-                    this.state.httpMethod,
-                    this.state.endpoint,
-                ]
+                {
+                    httpMethod: this.state.httpMethod,
+                    endpointUrl: this.state.endpoint,
+                }
             ]
         })
     }
@@ -71,6 +71,7 @@ class EndpointForm extends Component {
                     </select>
                 </div>
                 <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
+                <EndpointLists endpoints={this.state.endpoints}/>
             </div>
         );
     }
