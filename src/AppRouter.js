@@ -11,13 +11,13 @@ class AppRouter extends Component {
     render(){
         return(
 
-                <Switch>
-                    <Route exact path="/" component={Login}/>
-                    <Route path="/signup" component={Signup}/>
-                    <Route path="/cognito-setup" component={CognitoSetup}/>
-                    <Route path="/endpoints" component={EndpointForm}/>
-                    <Route path="/verifyemail" component={VerifyEmail}/>
-                </Switch>
+            <Switch>
+                <Route exact path="/" component={Login}/>
+                <Route path="/signup" component={Signup}/>
+                <Route path="/cognitosetup" component={CognitoSetup}/>
+                <Route path="/endpoints" component={EndpointForm}/>
+                <Route path="/verifyemail" component={VerifyEmail}/>
+            </Switch>
         )
     }
 }
