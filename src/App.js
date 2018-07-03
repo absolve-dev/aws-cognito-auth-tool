@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import AppRouter from "./AppRouter";
 import { amplifyConfig } from "./amplifyConfig";
 import './App.css';
+import NavigationBar from "./NavigationBar";
 
 class App extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <NavigationBar />
                 <AppRouter />
             </div>
         );
