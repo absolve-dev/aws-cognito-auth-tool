@@ -7,11 +7,31 @@ class EndpointForm extends Component {
         super(props);
     
         this.state = {
-          baseUrl: "https://api.spotrevolution.net",
+          baseUrl: "",
           endpoint: "",
           httpMethod: "GET",
           endpoints: []
         };
+    }
+
+    componentDidMount(){
+        const endpoints = this.getEndpointsInLocalStorage()
+        if(endpoints){
+            this.setState({endpoints})
+        }
+    }
+
+    getEndpointsInLocalStorage(){
+        return JSON.parse(localStorage.getItem("endpoints"))
+    }
+
+    setEndpointsInLocalStorage(endpoints){
+        localStorage.setItem("endpoints",JSON.stringify(endpoints))
+        return this.getEndpointsInLocalStorage()
+    }
+
+    removeEndpointsInLocalStorage(){
+        localStorage.removeItem("endpoints")
     }
 
     handleSubmit = event => {
@@ -22,9 +42,11 @@ class EndpointForm extends Component {
                 ...this.state.endpoints,
                 {
                     httpMethod: this.state.httpMethod,
-                    endpointUrl: this.state.endpoint,
+                    endpointUrl: this.state.baseUrl + this.state.endpoint,
                 }
             ]
+        },()=>{
+            this.setEndpointsInLocalStorage(this.state.endpoints)
         })
     }
     handleChange = event => {
@@ -40,7 +62,6 @@ class EndpointForm extends Component {
                 <div className="field">
                     <div className="control">
                         <input
-                            readOnly
                             type="text" 
                             className="input is-info" 
                             placeholder="baseUrl"
