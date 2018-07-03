@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Auth } from "aws-amplify";
+import { Redirect } from 'react-router-dom'
 import 'bulma/css/bulma.css'
 
 
@@ -9,9 +11,25 @@ class Signup extends Component {
         this.state = {
           email: "",
           password: "",
-          confirmPassword: "",
-
+          redirect: false
         };
+    }
+    handleSubmit = async event => {
+        event.preventDefault()
+        if (this.email === "" &&
+            this.password === ""){
+                return
+            }
+        try {
+            const response = await Auth.signUp({
+                username: this.state.email.toLowerCase(),
+                password: this.state.password
+            });
+            console.log(response);
+            this.setState({redirect:true})
+        } catch (error) {
+            console.log(error);  
+        }
     }
     handleChange = event => {
         this.setState({
@@ -20,6 +38,16 @@ class Signup extends Component {
     };
 
     render() {
+        if (this.state.redirect){
+            return (
+                <Redirect to={{
+                    pathname: "/verifyemail", 
+                    state:{
+                        email: this.state.email
+                    }}} 
+                />
+            )
+        }
         return (
             <div className="App">
                 <h1 className="title">User Signup Info</h1>
@@ -47,6 +75,7 @@ class Signup extends Component {
                         />
                     </div>
                 </div>
+                <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
             </div>
         );
     }
