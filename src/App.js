@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import Signup from "./containers/Authentication/Signup";
-import CognitoSetup from "./containers/Authentication/CognitoSetup";
-import logo from './logo.svg';
+import AppRouter from "./AppRouter";
+import { amplifyConfig } from "./amplifyConfig";
 import './App.css';
 
 class App extends Component {
@@ -16,12 +15,12 @@ class App extends Component {
     componentDidMount() {
         const cognito = JSON.parse(localStorage.getItem("cognito"))
         this.setState({cognito})
+        amplifyConfig(cognito)
     }
     render() {
         return (
             <div className="App">
-            <Signup />
-            <CognitoSetup/>
+                <AppRouter />
             </div>
         );
     }
