@@ -38,6 +38,12 @@ class EndpointForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
+        if (this.state.name === "" ||
+            this.state.baseUrl === "" ||
+            this.state.httpMethod === "" ||
+            this.state.endpoint === "" ){
+                return
+            }
         this.setState({
             endpoint: "",
             endpoints: [
