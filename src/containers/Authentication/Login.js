@@ -23,6 +23,7 @@ class Login extends Component {
         try {
             const response = await Auth.signIn(this.state.email.toLowerCase(), this.state.password);
             console.log(response);
+            this.props.userHasAuthenticated(true)
             this.setState({redirect:true})
         } catch (error) {
             console.log(error);  
