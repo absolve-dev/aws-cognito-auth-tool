@@ -48,7 +48,7 @@ class EndpointForm extends Component {
         const newEndpoint = {
             name: this.state.name,
             baseUrl: this.state.baseUrl,
-            endpointUrl: this.state.baseUrl + this.state.endpoint,
+            endpointUrl: this.state.endpoint,
             httpMethod: this.state.httpMethod,
         }
         this.setState({
