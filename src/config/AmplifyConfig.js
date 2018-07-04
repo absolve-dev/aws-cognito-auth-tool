@@ -18,10 +18,18 @@ export const amplifyConfig = (cognito) => {
     }     
 }
 
-export const AddEndpointToAmplify = async (endpoint) => {
+export const LoadEndpointsFromLocalStorage = () => {
+    const endpoints = JSON.parse(localStorage.getItem("endpoints"))
+    if (endpoints){
+        for( const endpoint of endpoints ) {
+            AddEndpointToAmplify(endpoint)
+        }
+    }
+}
+
+export const AddEndpointToAmplify = (endpoint) => {
     if (endpoint) {
-        const newConfiguration = await ConstructNewAmplifyConfiguration(endpoint)
-        console.log("new",newConfiguration);
+        const newConfiguration = ConstructNewAmplifyConfiguration(endpoint)
         try {
             Amplify.configure({
                 API: {
@@ -34,13 +42,12 @@ export const AddEndpointToAmplify = async (endpoint) => {
     }
 }
 
-const ConstructNewAmplifyConfiguration = async (newEndpoint) => {
+const ConstructNewAmplifyConfiguration = (newEndpoint) => {
     const cognito = JSON.parse(localStorage.getItem("cognito"))
     let newEndpointConfig = []
     try {
-        const prevConfiguration = await Amplify.configure();
+        const prevConfiguration = Amplify.configure();
         const prevEndpoints = prevConfiguration.hasOwnProperty("API") ? prevConfiguration.API.endpoints : [];
-        console.log("prev",prevEndpoints);
         if (prevEndpoints.length > 0) {
             const endpointExists = EndpointExistInConfiguration(newEndpoint,prevEndpoints);
             if (endpointExists) {
