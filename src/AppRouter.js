@@ -11,7 +11,7 @@ class AppRouter extends Component {
     render(){
         return(
             <Switch>
-                <Route exact path="/" component={Login}/>
+                <Route exact path="/" render={ props => <Login {...props} userHasAuthenticated={this.props.userHasAuthenticated} />}/>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/cognitosetup" render={ props => <CognitoSetup {...props} cognito={this.props.appState.cognito} />} />
                 <Route path="/endpoints" component={EndpointForm}/>
