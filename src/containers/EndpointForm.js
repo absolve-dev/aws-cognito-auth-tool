@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import EndpointLists from "./EndpointLists";
+import { AddEndpointToAmplify } from "../config/AmplifyConfig.js";
 
 class EndpointForm extends Component {
     constructor(props) {
@@ -44,18 +45,21 @@ class EndpointForm extends Component {
             this.state.endpoint === "" ){
                 return
             }
+        const newEndpoint = {
+            name: this.state.name,
+            baseUrl: this.state.baseUrl,
+            endpointUrl: this.state.baseUrl + this.state.endpoint,
+            httpMethod: this.state.httpMethod,
+        }
         this.setState({
             endpoint: "",
             endpoints: [
                 ...this.state.endpoints,
-                {
-                    httpMethod: this.state.httpMethod,
-                    endpointUrl: this.state.baseUrl + this.state.endpoint,
-                    name: this.state.name
-                }
+                newEndpoint
             ]
         },()=>{
             this.setEndpointsInLocalStorage(this.state.endpoints)
+            AddEndpointToAmplify(newEndpoint)
         })
     }
     handleChange = event => {
