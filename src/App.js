@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 
 import AppRouter from "./AppRouter";
 import { amplifyConfig, LoadEndpointsFromLocalStorage } from "./config/AmplifyConfig";
@@ -11,21 +12,32 @@ class App extends Component {
         super(props);
     
         this.state = {
-          cognito: {}
+          cognito: {},
+          redirectToCognitoSettings: false,
         };
     }
     componentDidMount() {
         const cognito = JSON.parse(localStorage.getItem("cognito"))
-        this.setState({cognito})
-        amplifyConfig(cognito)
-        LoadEndpointsFromLocalStorage()
+        if (cognito === null){
+            this.setState({redirectToCognitoSettings:true})
+        } else {
+            this.setState({cognito})
+            amplifyConfig(cognito)
+            LoadEndpointsFromLocalStorage()
+        }
         console.log(Amplify.configure())
     }
+
     render() {
+        if (this.state.redirectToCognitoSettings && window.location.pathname!=="/cognitosetup"){
+            return(
+                <Redirect to="/cognitosetup" />
+            )
+        }
         return (
             <div className="App">
                 <NavigationBar />
-                <AppRouter />
+                <AppRouter appState={this.state}/>
             </div>
         );
     }
