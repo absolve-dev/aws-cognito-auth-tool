@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import EndpointLists from "./EndpointLists";
+import CreatePostBody from "./CreatePostBody";
 import { AddEndpointToAmplify } from "../config/AmplifyConfig.js";
 
 class EndpointForm extends Component {
     constructor(props) {
         super(props);
-    
         this.state = {
           name: "",
           baseUrl: "",
           endpoint: "",
           httpMethod: "GET",
-          endpoints: []
+          endpoints: [],
+          body: {},
+          bodyKey: "",
+          bodyValue: "",
         };
     }
 
@@ -36,6 +39,35 @@ class EndpointForm extends Component {
     removeEndpointsInLocalStorage = () => {
         this.setState({endpoints:[]})
         localStorage.removeItem("endpoints")
+    }
+
+    addBodyItem = () => {
+        if (this.state.bodyKey === "" &&
+            this.state.bodyValue === "" ){
+                return
+            }
+        this.setState({
+            bodyKey: "",
+            bodyValue: "",
+            body: {
+                ...this.state.body,
+                [this.state.bodyKey]: this.state.bodyValue
+            }
+        })
+    }
+    delBodyItem = delItemKey => {
+        let newBodyItems = {}
+        for(let key in this.state.body){
+            if (this.state.body.hasOwnProperty(key)) {
+                if(key !== delItemKey){
+                    newBodyItems = {
+                        ...newBodyItems,
+                        [key]: this.state.body[key]
+                    }
+                }
+            }
+        }
+        this.setState({ body: newBodyItems })
     }
 
     handleSubmit = event => {
@@ -109,6 +141,17 @@ class EndpointForm extends Component {
                         />
                     </div>
                 </div>
+                {
+                    (this.state.httpMethod === "POST" || this.state.httpMethod === "PUT") && 
+                        <CreatePostBody 
+                            handleChange={this.handleChange} 
+                            body={this.state.body} 
+                            bodyKey={this.state.bodyKey} 
+                            bodyValue={this.state.bodyValue} 
+                            addBodyItem={this.addBodyItem}
+                            delBodyItem={this.delBodyItem}
+                        />
+                }
                 <div className="select">
                     <select name="httpMethod" value={this.state.httpMethod} onChange={this.handleChange}>
                         <option value="GET">GET</option>
