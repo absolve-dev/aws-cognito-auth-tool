@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
+import { API } from "aws-amplify";
 
 class EndpointLists extends Component {
     constructor(props) {
@@ -13,8 +14,21 @@ class EndpointLists extends Component {
         };
     }
 
-    handleFetch = (httpMethod,endpointUrl) => {
-        console.log(httpMethod,endpointUrl);   
+    handleFetch = async (endpoint) => {
+        try {
+            let response
+            if (endpoint.httpMethod === "GET") {
+                response = await API.get(endpoint.name,endpoint.endpointUrl)
+            } else if (endpoint.httpMethod === "POST") {
+                response = await API.post(endpoint.name,endpoint.endpointUrl)
+            } else if (endpoint.httpMethod === "PUT") {
+                response = await API.put(endpoint.name,endpoint.endpointUrl)
+            } else if (endpoint.httpMethod === "DELETE"){
+                response = await API.del(endpoint.name,endpoint.endpointUrl)
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
     handleChange = event => {
         this.setState({
@@ -30,15 +44,17 @@ class EndpointLists extends Component {
                     this.props.endpoints.length === 0 ? null:
                     this.props.endpoints.map( (endpoint,index) => {
                         return (
-                            <div class="container" key={index}>
-                                <div class="notification">
+                            <div className="container mrgnBtm10" key={index}>
+                                <div className="notification flex-space-between" >
                                     <div>
-                                        <strong>{endpoint.httpMethod}</strong> <span>{endpoint.endpointUrl}</span>
+                                        <strong>{endpoint.httpMethod}</strong> <span>{endpoint.baseUrl + endpoint.endpointUrl}</span>
                                     </div>
+                                    <div>
                                     <a 
                                         className="button is-info" 
-                                        onClick={()=>this.handleFetch(endpoint.httpMethod,endpoint.endpointUrl)}>Submit
+                                        onClick={()=>this.handleFetch(endpoint)}>Submit
                                     </a>
+                                    </div>
                                 </div>
                             </div>                           
                         )
