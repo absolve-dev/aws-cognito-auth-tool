@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
-import { amplifyConfig } from "../../amplifyConfig";
-
+import { amplifyConfig } from "../../config/AmplifyConfig";
+import CognitoDetails from "../CognitoDetails";
 class CognitoSetup extends Component {
     constructor(props) {
         super(props);
@@ -84,6 +84,7 @@ class CognitoSetup extends Component {
                     </div>
                 </div>
                 <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
+                <CognitoDetails cognito={this.props.cognito}/>
             </div>
         );
     }
