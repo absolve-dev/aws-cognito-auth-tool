@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
-
+import { Auth } from "aws-amplify";
 class NavigationBar extends Component {
     render() {
         return(
@@ -25,6 +25,11 @@ class NavigationBar extends Component {
                     <Link className="navbar-item" to="/cognitosetup">
                         Cognito Settings
                     </Link>
+                    <div onClick={() => Auth.signOut()}>
+                        <Link className="navbar-item" to="/cognitosetup" >
+                            Logout
+                        </Link>
+                    </div>
                     </div>
                 </div>
             </nav>
