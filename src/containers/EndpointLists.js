@@ -36,6 +36,14 @@ class EndpointLists extends Component {
         });
     };
 
+    handleDeleteEndpoint = iEndpoint => {
+
+        const endpoints = this.props.getEndpointsInLocalStorage()
+        console.log(iEndpoint,endpoints);
+        const newEndpoints = endpoints.filter( (_,index) => index!==iEndpoint )
+        this.props.setEndpointsInLocalStorage(newEndpoints)
+    }
+
     render() {
         return (
             <div className="App">
@@ -53,6 +61,10 @@ class EndpointLists extends Component {
                                     <a 
                                         className="button is-info" 
                                         onClick={()=>this.handleFetch(endpoint)}>Submit
+                                    </a>
+                                    <a 
+                                        className="button is-danger" 
+                                        onClick={()=>this.handleDeleteEndpoint(index)}>Delete
                                     </a>
                                     </div>
                                 </div>
