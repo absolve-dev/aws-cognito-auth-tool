@@ -43,7 +43,12 @@ class App extends Component {
 
     userHasAuthenticated = authenticated => {
         this.setState({ isAuthenticated: authenticated });
-      };
+    };
+
+    userLogout = () => {
+        Auth.signOut()
+        this.setState({isAuthenticated: false})
+    }
 
     render() {
         if (this.state.redirectToCognitoSettings && window.location.pathname!=="/cognitosetup"){
@@ -53,7 +58,7 @@ class App extends Component {
         }
         return (
             <div className="App">
-                <NavigationBar appState={this.state} />
+                <NavigationBar appState={this.state} userLogout={this.userLogout} />
                 <AppRouter appState={this.state} userHasAuthenticated={this.userHasAuthenticated}/>
             </div>
         );
