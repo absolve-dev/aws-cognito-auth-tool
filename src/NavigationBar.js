@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
 import { Auth } from "aws-amplify";
 class NavigationBar extends Component {
+
+
     render() {
         return(
             <nav className="navbar" aria-label="dropdown navigation">
@@ -25,11 +27,15 @@ class NavigationBar extends Component {
                     <Link className="navbar-item" to="/cognitosetup">
                         Cognito Settings
                     </Link>
-                    <div onClick={() => Auth.signOut()}>
-                        <Link className="navbar-item" to="/cognitosetup" >
-                            Logout
-                        </Link>
-                    </div>
+                    {
+                        this.props.appState.isAuthenticated &&
+                        <div onClick={() => this.props.userLogout()}>
+                            <Link className="navbar-item" to="/" >
+                                Logout
+                            </Link>
+                        </div>
+
+                    }
                     </div>
                 </div>
             </nav>
