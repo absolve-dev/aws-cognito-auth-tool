@@ -21,7 +21,7 @@ class App extends Component {
         if (cognito === null){
             this.setState({redirectToCognitoSettings:true})
         } else {
-            this.setState({cognito})
+            this.setState({cognito, redirectToCognitoSettings: false})
             amplifyConfig(cognito)
             LoadEndpointsFromLocalStorage()
         }
