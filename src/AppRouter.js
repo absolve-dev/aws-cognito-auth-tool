@@ -10,11 +10,10 @@ import VerifyEmail from './containers/Authentication/VerifyEmail';
 class AppRouter extends Component {
     render(){
         return(
-
             <Switch>
                 <Route exact path="/" component={Login}/>
                 <Route path="/signup" component={Signup}/>
-                <Route path="/cognitosetup" component={CognitoSetup}/>
+                <Route path="/cognitosetup" render={ props => <CognitoSetup {...props} cognito={this.props.appState.cognito} />} />
                 <Route path="/endpoints" component={EndpointForm}/>
                 <Route path="/verifyemail" component={VerifyEmail}/>
             </Switch>
