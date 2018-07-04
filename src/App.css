@@ -35,3 +35,7 @@
     display: flex;
     justify-content:space-between;
 }
+
+.text-align-left{
+    text-align: left;
+}
