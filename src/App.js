@@ -5,7 +5,7 @@ import AppRouter from "./AppRouter";
 import { amplifyConfig, LoadEndpointsFromLocalStorage } from "./config/AmplifyConfig";
 import './App.css';
 import NavigationBar from "./NavigationBar";
-import Amplify from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 
 class App extends Component {
     constructor(props) {
@@ -14,9 +14,10 @@ class App extends Component {
         this.state = {
           cognito: {},
           redirectToCognitoSettings: false,
+          isAuthenticated:false
         };
     }
-    componentDidMount() {
+    async componentDidMount() {
         const cognito = JSON.parse(localStorage.getItem("cognito"))
         if (cognito === null){
             this.setState({redirectToCognitoSettings:true})
@@ -24,9 +25,25 @@ class App extends Component {
             this.setState({cognito, redirectToCognitoSettings: false})
             amplifyConfig(cognito)
             LoadEndpointsFromLocalStorage()
+            try{
+                if(await Auth.currentSession()){
+                    this.userHasAuthenticated(true)
+                }
+            } catch (error){
+                if (error !== 'No current user') {
+                    console.log(error);
+                } else if (error === "No current user"){
+                    this.userHasAuthenticated(false)
+                }
+            }
+
         }
         console.log(Amplify.configure())
     }
+
+    userHasAuthenticated = authenticated => {
+        this.setState({ isAuthenticated: authenticated });
+      };
 
     render() {
         if (this.state.redirectToCognitoSettings && window.location.pathname!=="/cognitosetup"){
@@ -36,8 +53,8 @@ class App extends Component {
         }
         return (
             <div className="App">
-                <NavigationBar />
-                <AppRouter appState={this.state}/>
+                <NavigationBar appState={this.state} />
+                <AppRouter appState={this.state} userHasAuthenticated={this.userHasAuthenticated}/>
             </div>
         );
     }
