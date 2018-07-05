@@ -15,16 +15,22 @@ class EndpointLists extends Component {
     }
 
     handleFetch = async (endpoint) => {
+        let myInit = {
+            response: true
+        }
+        if (endpoint.body!==null) {
+            myInit.body = endpoint.body
+        }
         try {
             let response
             if (endpoint.httpMethod === "GET") {
-                response = await API.get(endpoint.name,endpoint.endpointUrl)
+                response = await API.get(endpoint.name,endpoint.endpointUrl,myInit)
             } else if (endpoint.httpMethod === "POST") {
-                response = await API.post(endpoint.name,endpoint.endpointUrl)
+                response = await API.post(endpoint.name,endpoint.endpointUrl,myInit)
             } else if (endpoint.httpMethod === "PUT") {
-                response = await API.put(endpoint.name,endpoint.endpointUrl)
+                response = await API.put(endpoint.name,endpoint.endpointUrl,myInit)
             } else if (endpoint.httpMethod === "DELETE"){
-                response = await API.del(endpoint.name,endpoint.endpointUrl)
+                response = await API.del(endpoint.name,endpoint.endpointUrl,myInit)
             }
             this.props.handleResponse(response)
         } catch (error) {
@@ -36,14 +42,6 @@ class EndpointLists extends Component {
             [event.target.name]: event.target.value
         });
     };
-
-    handleDeleteEndpoint = iEndpoint => {
-
-        const endpoints = this.props.getEndpointsInLocalStorage()
-        console.log(iEndpoint,endpoints);
-        const newEndpoints = endpoints.filter( (_,index) => index!==iEndpoint )
-        this.props.setEndpointsInLocalStorage(newEndpoints)
-    }
 
     render() {
         return (
@@ -64,8 +62,12 @@ class EndpointLists extends Component {
                                         onClick={()=>this.handleFetch(endpoint)}>Submit
                                     </a>
                                     <a 
+                                        className="button is-primary" 
+                                        onClick={()=>this.props.handleEditEndpoint(index)}>Edit
+                                    </a>
+                                    <a 
                                         className="button is-danger" 
-                                        onClick={()=>this.handleDeleteEndpoint(index)}>Delete
+                                        onClick={()=>this.props.handleDeleteEndpoint(index)}>Delete
                                     </a>
                                     </div>
                                 </div>
