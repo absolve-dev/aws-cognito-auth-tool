@@ -48,12 +48,16 @@ class EndpointForm extends Component {
             this.state.bodyValue === "" ){
                 return
             }
+        let bodyValue = this.state.bodyValue
+        if (!isNaN( this.state.bodyValue - parseFloat( this.state.bodyValue ) )) {
+            bodyValue = Number(bodyValue)
+        }
         this.setState({
             bodyKey: "",
             bodyValue: "",
             body: {
                 ...this.state.body,
-                [this.state.bodyKey]: this.state.bodyValue
+                [this.state.bodyKey]: bodyValue
             }
         })
     }
@@ -87,7 +91,7 @@ class EndpointForm extends Component {
             httpMethod: this.state.httpMethod,
             body:null
         }
-        if (Object.keys(this.state.body).length !== 0) {
+        if (this.state.body!==null && Object.keys(this.state.body).length !== 0) {
             newEndpoint.body = this.state.body
         }
         this.setState({
@@ -95,7 +99,10 @@ class EndpointForm extends Component {
             endpoints: [
                 ...this.state.endpoints,
                 newEndpoint
-            ]
+            ],
+            bodyKey: "",
+            bodyValue: "",
+            body: {},
         },()=>{
             this.setEndpointsInLocalStorage(this.state.endpoints)
             AddEndpointToAmplify(newEndpoint)
@@ -110,7 +117,29 @@ class EndpointForm extends Component {
 
     handleResponse = response => {
         this.setState({response})
+        console.log(response);
     }
+
+    handleDeleteEndpoint = iEndpoint => {
+
+        const endpoints = this.getEndpointsInLocalStorage()
+        console.log(iEndpoint,endpoints);
+        const newEndpoints = endpoints.filter( (_,index) => index!==iEndpoint )
+        this.setEndpointsInLocalStorage(newEndpoints)
+    }
+
+    handleEditEndpoint = iEndpoint => {
+        let endpoint = this.getEndpointsInLocalStorage()[iEndpoint]
+        this.setState({
+            name: endpoint.name,
+            baseUrl: endpoint.baseUrl,
+            endpoint: endpoint.endpointUrl,
+            httpMethod: endpoint.httpMethod,
+            body: endpoint.body,
+        })
+        this.handleDeleteEndpoint(iEndpoint)
+    }
+    
     render() {
         return (
             <div className="App">
@@ -176,6 +205,8 @@ class EndpointForm extends Component {
                 <EndpointLists 
                     endpoints={this.state.endpoints}
                     handleResponse={this.handleResponse}
+                    handleDeleteEndpoint={this.handleDeleteEndpoint}
+                    handleEditEndpoint={this.handleEditEndpoint}
                     getEndpointsInLocalStorage={this.getEndpointsInLocalStorage}
                     setEndpointsInLocalStorage={this.setEndpointsInLocalStorage}
                 />
