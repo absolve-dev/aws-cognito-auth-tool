@@ -80,11 +80,15 @@ class EndpointForm extends Component {
             this.state.endpoint === "" ){
                 return
             }
-        const newEndpoint = {
+        let newEndpoint = {
             name: this.state.name,
             baseUrl: this.state.baseUrl,
             endpointUrl: this.state.endpoint,
             httpMethod: this.state.httpMethod,
+            body:null
+        }
+        if (Object.keys(this.state.body).length !== 0) {
+            newEndpoint.body = this.state.body
         }
         this.setState({
             endpoint: "",
@@ -97,6 +101,7 @@ class EndpointForm extends Component {
             AddEndpointToAmplify(newEndpoint)
         })
     }
+
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
