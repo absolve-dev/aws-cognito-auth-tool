@@ -2,9 +2,9 @@
 
 ## Setup
 
-Using [npm](https://www.npmjs.com/):
-
 `$ git clone https://github.com/absolve-dev/aws-cognito-auth-tool.git`
+
+Using [npm](https://www.npmjs.com/):
 
 `$ npm install`
 
