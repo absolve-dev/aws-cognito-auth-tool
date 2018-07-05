@@ -26,6 +26,7 @@ class EndpointLists extends Component {
             } else if (endpoint.httpMethod === "DELETE"){
                 response = await API.del(endpoint.name,endpoint.endpointUrl)
             }
+            this.props.handleResponse(response)
         } catch (error) {
             console.log(error);
         }
