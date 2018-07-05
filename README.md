@@ -1,4 +1,4 @@
-# **Spot Revolution Backend Server**
+# **AWS Cognito Authorization Tool**
 
 ## Setup
 
