@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Auth } from "aws-amplify";
-import { Redirect } from 'react-router-dom'
 import 'bulma/css/bulma.css'
 
 

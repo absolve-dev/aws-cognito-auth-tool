@@ -16,7 +16,7 @@ class EndpointLists extends Component {
 
     handleFetch = async (endpoint) => {
         let myInit = {
-            response: true
+            response: true,
         }
         if (endpoint.body!==null) {
             myInit.body = endpoint.body

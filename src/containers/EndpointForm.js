@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import EndpointLists from "./EndpointLists";
-import EndpointResponse from "./EndpointResponse";
 import CreatePostBody from "./CreatePostBody";
 import { AddEndpointToAmplify } from "../config/AmplifyConfig.js";
 
@@ -117,7 +116,7 @@ class EndpointForm extends Component {
 
     handleResponse = response => {
         this.setState({response})
-        console.log(response);
+        console.log("Response:",response);
     }
 
     handleDeleteEndpoint = iEndpoint => {
@@ -201,7 +200,6 @@ class EndpointForm extends Component {
                 </div>
                 <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
                 <a className="button is-danger" onClick={this.removeEndpointsInLocalStorage}>Delete All Endpoints</a>
-                <EndpointResponse response={this.state.response} />
                 <EndpointLists 
                     endpoints={this.state.endpoints}
                     handleResponse={this.handleResponse}

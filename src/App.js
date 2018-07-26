@@ -25,8 +25,12 @@ class App extends Component {
             this.setState({cognito, redirectToCognitoSettings: false})
             amplifyConfig(cognito)
             LoadEndpointsFromLocalStorage()
+            
             try{
-                if(await Auth.currentSession()){
+                const response = await Auth.currentSession()
+                if(response){
+                    console.log(response);
+                    console.log("TOKEN",response.idToken);
                     this.userHasAuthenticated(true)
                 }
             } catch (error){
