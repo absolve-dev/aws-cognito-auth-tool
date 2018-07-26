@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./containers/Authentication/Login";
 import Signup from "./containers/Authentication/Signup";
 import CognitoSetup from "./containers/Authentication/CognitoSetup";
-import EndpointForm from "./containers/EndpointForm";
+import Endpoints from "./containers/Endpoints";
 import VerifyEmail from './containers/Authentication/VerifyEmail';
 
 class AppRouter extends Component {
@@ -14,7 +14,7 @@ class AppRouter extends Component {
                 <Route exact path="/" render={ props => <Login {...props} userHasAuthenticated={this.props.userHasAuthenticated} />}/>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/cognitosetup" render={ props => <CognitoSetup {...props} cognito={this.props.appState.cognito} />} />
-                <Route path="/endpoints" component={EndpointForm}/>
+                <Route path="/endpoints" component={Endpoints}/>
                 <Route path="/verifyemail" component={VerifyEmail}/>
             </Switch>
         )
