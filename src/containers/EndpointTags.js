@@ -15,7 +15,7 @@ class EndpointTags extends Component {
                     endpointNames.map( (name, index) => 
                         <span 
                             key={index}
-                            className="tag is-success"
+                            className="tag is-info"
                             style={{ cursor:"pointer" }}
                             onClick={() => this.props.autoFillFormWithBaseEndpoint(name)}>
                             {name}

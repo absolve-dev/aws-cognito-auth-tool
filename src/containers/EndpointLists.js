@@ -51,23 +51,33 @@ class EndpointLists extends Component {
                     this.props.endpoints.map( (endpoint,index) => {
                         return (
                             <div className="container mrgnBtm10" key={index}>
-                                <div className="notification flex-space-between" >
-                                    <div>
-                                        <strong>{endpoint.httpMethod}</strong> <span>{endpoint.baseUrl + endpoint.endpointUrl}</span>
-                                    </div>
-                                    <div>
-                                    <a 
-                                        className="button is-info" 
-                                        onClick={()=>this.handleFetch(endpoint)}>Submit
-                                    </a>
-                                    <a 
-                                        className="button is-primary" 
-                                        onClick={()=>this.props.handleEditEndpoint(index)}>Edit
-                                    </a>
-                                    <a 
-                                        className="button is-danger" 
-                                        onClick={()=>this.props.handleDeleteEndpoint(index)}>Delete
-                                    </a>
+                                <div className="notification" >
+                                    <div class="columns">
+                                        <div class="column is-4">
+                                            <div>
+                                                <span class="tag is-info">{endpoint.name}</span>
+                                                <span class="tag is-primary">{endpoint.httpMethod}</span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-4">
+                                            <span style={{display:"block"}}>{ endpoint.endpointUrl }</span>
+                                        </div>
+                                        <div class="column is-4">
+                                            <div>
+                                                <a 
+                                                    className="button is-info" 
+                                                    onClick={()=>this.handleFetch(endpoint)}>Submit
+                                                </a>
+                                                <a 
+                                                    className="button is-primary" 
+                                                    onClick={()=>this.props.handleEditEndpoint(index)}>Edit
+                                                </a>
+                                                <a 
+                                                    className="button is-danger" 
+                                                    onClick={()=>this.props.handleDeleteEndpoint(index)}>Delete
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>                           
