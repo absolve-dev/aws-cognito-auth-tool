@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import CreatePostBody from "./CreatePostBody";
 class EndpointForm extends Component {
     render(){
         return(
@@ -40,6 +40,27 @@ class EndpointForm extends Component {
                         />
                     </div>
                 </div>
+                {
+                    (this.props.httpMethod === "POST" || this.props.httpMethod === "PUT") && 
+                        <CreatePostBody 
+                            handleChange={this.props.handleChange} 
+                            body={this.props.body} 
+                            bodyKey={this.props.bodyKey} 
+                            bodyValue={this.props.bodyValue} 
+                            addBodyItem={this.props.addBodyItem}
+                            delBodyItem={this.props.delBodyItem}
+                        />
+                }
+                <div className="select">
+                    <select name="httpMethod" value={this.props.httpMethod} onChange={this.props.handleChange}>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+                <a className="button is-info" onClick={this.props.handleSubmit}>Submit</a>
+                <a className="button is-danger" onClick={this.props.removeEndpointsInLocalStorage}>Delete All Endpoints</a>
             </div>
         )
     }

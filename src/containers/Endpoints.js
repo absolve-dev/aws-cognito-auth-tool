@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import 'bulma/css/bulma.css'
+import React, { Component } from "react";
+
+import { AddEndpointToAmplify } from "../config/AmplifyConfig.js";
 import EndpointLists from "./EndpointLists";
 import EndpointForm from "./EndpointForm";
-import CreatePostBody from "./CreatePostBody";
-import { AddEndpointToAmplify } from "../config/AmplifyConfig.js";
-import EndpointTags from './EndpointTags';
+import EndpointTags from "./EndpointTags";
+import SectionHeader from "../components/SectionHeader";
+
+import 'bulma/css/bulma.css'
 
 class Endpoints extends Component {
     constructor(props) {
@@ -160,50 +162,35 @@ class Endpoints extends Component {
     
     render() {
         return (
-            <div className="App">
-                <h1 className="title">Endpoints</h1>
+            <div className="container">
+                <SectionHeader title="Endpoint Form" />
                 <EndpointForm 
                     handleChange={this.handleChange}
-                    name={this.state.name} 
-                    baseUrl={this.state.baseUrl} 
-                    endpoint={this.state.endpoint} 
+                    addBodyItem={this.addBodyItem}
+                    delBodyItem={this.delBodyItem}
+                    handleSubmit={this.handleSubmit}
+                    removeEndpointsInLocalStorage={this.removeEndpointsInLocalStorage}
+                    {...this.state}
                 />
-                {
-                    (this.state.httpMethod === "POST" || this.state.httpMethod === "PUT") && 
-                        <CreatePostBody 
-                            handleChange={this.handleChange} 
-                            body={this.state.body} 
-                            bodyKey={this.state.bodyKey} 
-                            bodyValue={this.state.bodyValue} 
-                            addBodyItem={this.addBodyItem}
-                            delBodyItem={this.delBodyItem}
-                        />
-                }
-                <div className="select">
-                    <select name="httpMethod" value={this.state.httpMethod} onChange={this.handleChange}>
-                        <option value="GET">GET</option>
-                        <option value="POST">POST</option>
-                        <option value="PUT">PUT</option>
-                        <option value="DELETE">DELETE</option>
-                    </select>
-                </div>
-                <a className="button is-info" onClick={this.handleSubmit}>Submit</a>
-                <a className="button is-danger" onClick={this.removeEndpointsInLocalStorage}>Delete All Endpoints</a>
                 {   
                     this.state.endpoints.length > 0 &&
-                    <EndpointTags 
-                        endpoints={this.state.endpoints}
-                        autoFillFormWithBaseEndpoint={this.autoFillFormWithBaseEndpoint} 
-                    />
+                    <div>
+                        <SectionHeader title="Base Endpoints" />
+                        <EndpointTags 
+                            endpoints={this.state.endpoints}
+                            autoFillFormWithBaseEndpoint={this.autoFillFormWithBaseEndpoint} 
+                        />
+                        <SectionHeader title="Endpoints" />
+                        <EndpointLists 
+                            endpoints={this.state.endpoints}
+                            handleResponse={this.handleResponse}
+                            handleDeleteEndpoint={this.handleDeleteEndpoint}
+                            handleEditEndpoint={this.handleEditEndpoint}
+                            getEndpointsInLocalStorage={this.getEndpointsInLocalStorage}
+                            setEndpointsInLocalStorage={this.setEndpointsInLocalStorage}
+                        />
+                    </div>
                 }
-                <EndpointLists 
-                    endpoints={this.state.endpoints}
-                    handleResponse={this.handleResponse}
-                    handleDeleteEndpoint={this.handleDeleteEndpoint}
-                    handleEditEndpoint={this.handleEditEndpoint}
-                    getEndpointsInLocalStorage={this.getEndpointsInLocalStorage}
-                    setEndpointsInLocalStorage={this.setEndpointsInLocalStorage}
-                />
             </div>
         );
     }
