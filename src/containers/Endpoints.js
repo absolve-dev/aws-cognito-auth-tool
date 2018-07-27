@@ -175,12 +175,12 @@ class Endpoints extends Component {
                 {   
                     this.state.endpoints.length > 0 &&
                     <div>
-                        <SectionHeader title="Base Endpoints" />
+                        <SectionHeader title="Endpoints Tags" />
                         <EndpointTags 
                             endpoints={this.state.endpoints}
                             autoFillFormWithBaseEndpoint={this.autoFillFormWithBaseEndpoint} 
                         />
-                        <SectionHeader title="Endpoints" />
+                        <SectionHeader title="Endpoint List" />
                         <EndpointLists 
                             endpoints={this.state.endpoints}
                             handleResponse={this.handleResponse}
