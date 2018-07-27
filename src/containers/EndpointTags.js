@@ -10,15 +10,19 @@ class EndpointTags extends Component {
         });
         
         return(
-            endpointNames.map( (name, index) => 
-                <span 
-                    style={{ cursor:"pointer" }}
-                    onClick={() => this.props.autoFillFormWithBaseEndpoint(name)}
-                    key={index} 
-                    className="tag is-success">
-                    {name}
-                </span>
-            )
+            <div className="tags">
+                {
+                    endpointNames.map( (name, index) => 
+                        <span 
+                            key={index}
+                            className="tag is-success"
+                            style={{ cursor:"pointer" }}
+                            onClick={() => this.props.autoFillFormWithBaseEndpoint(name)}>
+                            {name}
+                        </span>
+                    )
+                }
+            </div>
         )
     }
 }
